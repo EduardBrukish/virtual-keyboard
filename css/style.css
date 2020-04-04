@@ -1,0 +1,29 @@
+.snowflake {
+   position: absolute; 
+   /* top: 10%; */
+  /* transition: top 15s; */
+}
+
+@keyframes anime {
+    0% {
+        top: 10%;
+    }
+
+    100% {
+        top: 90%;
+    }
+}
+
+.test  {background-color: rgb(23.49, 0, 0)}
+/* .snowflake:hover {
+     top: 90%;
+  transition: top 15s;
+} */
+td {
+    width: 20px;
+}
+/* 
+.snowflake:after {
+      content: "\2744"; 
+  color: black;
+ } */
