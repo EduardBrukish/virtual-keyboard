@@ -195,6 +195,8 @@ function endMouseEvent(event) {
 function keyboardEvent(event) {
   if (!keyCodes.includes(event.keyCode)) return;
   event.preventDefault();
+  const repeatShift = event.repeat;
+  if (repeatShift && event.keyCode === 16) return;
   let activeKeyValue;
   if (event.location === 2) {
     const activeKey = keyboard.querySelectorAll(`.key[data-key-code="${event.keyCode}"]`);
