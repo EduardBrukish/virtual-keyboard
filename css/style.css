@@ -1,0 +1,75 @@
+.wrapper {
+  width: 80%;
+  margin: 0 auto;
+  padding: 0 30px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.output {
+  width: 100%;
+  height: 20vh;
+  margin-bottom: 50px;
+  font-size: 16px;
+  line-height: 1.5em;
+}
+
+.keyboard {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: #2e2a2a;
+}
+
+.key {
+  width: 5.8%;
+  margin: 0.2%;
+  text-align: center;
+  font-size: 16px;
+  line-height: 40px;
+  background-color: #585858;
+  border-radius: 3px;
+  color: #ffffff;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.key:active {
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+  -webkit-transition: -webkit-transform 0.1s;
+  transition: -webkit-transform 0.1s;
+  transition: transform 0.1s;
+  transition: transform 0.1s, -webkit-transform 0.1s;
+  background-color: #04a8ad;
+}
+
+.middle-key {
+  width: 8.7%;
+}
+
+.wide-key {
+  width: 12.76%;
+}
+
+.space-key {
+  width: 39.44%;
+}
+
+.active-key {
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+  -webkit-transition: -webkit-transform 0.1s;
+  transition: -webkit-transform 0.1s;
+  transition: transform 0.1s;
+  transition: transform 0.1s, -webkit-transform 0.1s;
+  background-color: #04a8ad;
+}
