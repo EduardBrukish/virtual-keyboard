@@ -2,7 +2,16 @@ const keyboardLayout = {
   eng: [['`', '~'], ['1', '!'], ['2', '@'], ['3', '#'], ['4', '$'], ['5', '%'], ['6', '^'], ['7', '&'], ['8', '*'], ['9', '('], ['0', ')'], ['-', '_'], ['=', '+'], 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', ['[', '{'], [']', '}'], ['\\', '|'], 'Del', 'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', [';', ':'], ['\'', '"'], 'Enter', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', [',', '<'], ['.', '>'], ['/', '?'], '↑', 'Shift', 'Ctrl', 'Win', 'Alt', ' ', 'Alt', '←', '↓', '→', 'Ctrl'],
   rus: ['ё', ['1', '!'], ['2', '@'], ['3', '#'], ['4', '$'], ['5', '%'], ['6', '^'], ['7', '&'], ['8', '*'], ['9', '('], ['0', ')'], ['-', '_'], ['=', '+'], 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', ['\\', '/'], 'Del', 'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', ['.', ','], '↑', 'Shift', 'Ctrl', 'Win', 'Alt', ' ', 'Alt', '←', '↓', '→', 'Ctrl'],
 };
-const functionalKeys = ['Backspace', 'Tab', 'Del', 'CapsLock', 'Enter', 'Shift', 'Ctrl', 'Alt'];
+const functionalKeys = {
+  Backspace: true,
+  Tab: true,
+  Del: true,
+  CapsLock: true,
+  Enter: true,
+  Shift: true,
+  Ctrl: true,
+  Alt: true,
+};
 const keyCodes = [192, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 189, 187, 8, 9, 81, 87, 69,
   82, 84, 89, 85, 73, 79, 80, 219, 221, 220, 46, 20, 65, 83, 68, 70, 71, 72, 74, 75, 76,
   186, 222, 13, 16, 90, 88, 67, 86, 66, 78, 77, 188, 190, 191, 38, 16, 17, 91, 18, 32, 18,
@@ -11,6 +20,8 @@ const body = document.querySelector('body');
 const wrapper = document.createElement('div');
 const outputText = document.createElement('textarea');
 const keyboard = document.createElement('div');
+const shiftButtonKeyCode = 16;
+const secondOfDuplicatedButtons = 2;
 let language = 'eng';
 let ctrlTarget = false;
 let altTarget = false;
@@ -136,9 +147,9 @@ const keyEvents = {
 
   del() {
     if (outputText.value.length === outputText.selectionEnd
-            && outputText.selectionEnd === outputText.selectionStart) return;
+      && outputText.selectionEnd === outputText.selectionStart) return;
     if (outputText.value.length !== outputText.selectionEnd
-            && outputText.selectionEnd === outputText.selectionStart) {
+      && outputText.selectionEnd === outputText.selectionStart) {
       outputText.setRangeText('', outputText.selectionStart, outputText.selectionEnd + 1, 'end');
     } else { showOutput(''); }
   },
@@ -159,7 +170,7 @@ function keyTarget(activeKeyValue) {
   if (activeKeyValue === 'Win') return;
   if (!activeKeyValue) {
     keyEvents.space();
-  } else if (functionalKeys.includes(activeKeyValue)) {
+  } else if (functionalKeys[activeKeyValue]) {
     keyEvents[activeKeyValue.toLowerCase()]();
   } else { keyEvents.default(activeKeyValue); }
 }
@@ -196,9 +207,9 @@ function keyboardEvent(event) {
   if (!keyCodes.includes(event.keyCode)) return;
   event.preventDefault();
   const repeatShift = event.repeat;
-  if (repeatShift && event.keyCode === 16) return;
+  if (repeatShift && event.keyCode === shiftButtonKeyCode) return;
   let activeKeyValue;
-  if (event.location === 2) {
+  if (event.location === secondOfDuplicatedButtons) {
     const activeKey = keyboard.querySelectorAll(`.key[data-key-code="${event.keyCode}"]`);
     activeKey[1].classList.add('active-key');
     activeKeyValue = activeKey[1].innerText;
@@ -215,7 +226,7 @@ function keyboardEvent(event) {
 function endKeyboardEvent(event) {
   if (event.key === 'CapsLock' || !keyCodes.includes(event.keyCode)) return;
   let activeKeyValue;
-  if (event.location === 2) {
+  if (event.location === secondOfDuplicatedButtons) {
     const activeKey = keyboard.querySelectorAll(`.key[data-key-code="${event.keyCode}"]`);
     activeKey[1].classList.remove('active-key');
     activeKeyValue = activeKey[1].innerText;
